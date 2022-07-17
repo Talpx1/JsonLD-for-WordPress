@@ -1,0 +1,27 @@
+{
+    "name": "talp1/jsonld_for_wordpress",
+    "description": "Easily setup and manage JsonLD from your wordpress admin area",
+    "type": "wordpress-plugin",
+    "license": "All Right Reserved",
+    "autoload": {
+        "psr-4": {
+            "JsonldForWordpress\\Includes\\": "includes/",
+            "JsonldForWordpress\\Classes\\": "classes/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Talp1"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require-dev": {
+        "phpstan/phpstan": "1.8.x-dev",
+        "thecodingmachine/phpstan-safe-rule": "^1.2",
+        "phpunit/phpunit": "^9"
+    },
+    "require": {
+        "thecodingmachine/safe": "2.2.x-dev",
+        "squizlabs/php_codesniffer": "4.0.x-dev"
+    }
+}
