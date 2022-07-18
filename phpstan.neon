@@ -1,8 +1,15 @@
-includes:
-    - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
 parameters:
+	level: 5
 	paths:
 		- assets
 		- classes
 		- includes
-		- .
+		- jsonld_for_wordpress.php
+		- uninstall.php
+	excludePaths:
+		- vendor
+		- wpcs
+	
+includes:
+    - vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon

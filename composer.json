@@ -5,8 +5,8 @@
     "license": "All Right Reserved",
     "autoload": {
         "psr-4": {
-            "JsonldForWordpress\\Includes\\": "includes/",
-            "JsonldForWordpress\\Classes\\": "classes/"
+            "JsonLDForWP\\Includes\\": "includes/",
+            "JsonLDForWP\\Classes\\": "classes/"
         }
     },
     "authors": [
@@ -19,7 +19,8 @@
         "phpstan/phpstan": "1.8.x-dev",
         "thecodingmachine/phpstan-safe-rule": "^1.2",
         "phpunit/phpunit": "^9",
-        "fzaninotto/faker": "1.9.x-dev"
+        "fzaninotto/faker": "1.9.x-dev",
+        "szepeviktor/phpstan-wordpress": "dev-master"
     },
     "require": {
         "thecodingmachine/safe": "2.2.x-dev",

@@ -3,6 +3,7 @@
 namespace Tests\Traits;
 
 use PDO;
+use RuntimeException;
 
 trait UseMemoryDatabase {
     /**
@@ -12,26 +13,29 @@ trait UseMemoryDatabase {
      */
     private static $db;
 
-    public static function setUpBeforeClass(): void {
-        self::createDb();
-    }
-
-    public static function setUp(): void {
+    protected static function refreshDb(): void {
         if (is_null(self::$db)) self::createDb();
-        self::$db->query("
-            PRAGMA writable_schema = 1;
+        self::$db->query(
+            "PRAGMA writable_schema = 1;
             DELETE FROM sqlite_master WHERE TYPE IN ('table', 'index', 'trigger');
             PRAGMA writable_schema = 0;
             VACUUM;
-            PRAGMA INTEGRITY_CHECK;
-        ");
+            PRAGMA INTEGRITY_CHECK;"
+        );
     }
 
-    public static function tearDownAfterClass(): void {
+    protected static function destroyDb(): void {
+        self::refreshDb();
         self::$db = null;
     }
 
-    public static function createDb() {
+    protected static function createDb() {
         self::$db = new PDO('sqlite::memory:');
     }
 }
+
+if (trait_exists("UseTestCaseHooks")) {
+    self::$before_class[] = self::createDb();
+    self::$after_class[] = self::destroyDb();
+    self::$before_test[] = self::refreshDb();
+} else throw new RuntimeException("UseTestCaseHooks Trait not found. It is required to run other traits in tests.");
