@@ -5,8 +5,13 @@
     "license": "All Right Reserved",
     "autoload": {
         "psr-4": {
-            "JsonLDForWP\\Includes\\": "includes/",
-            "JsonLDForWP\\Classes\\": "classes/"
+            "JsonLDForWP\\Framework\\": "framework/",
+            "JsonLDForWP\\Plugin\\": "plugin/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
         }
     },
     "authors": [

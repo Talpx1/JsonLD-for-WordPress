@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace JsonLDForWP;
 
-use Exception;
+use JsonLDForWP\Framework\AdminNotice;
 use RuntimeException;
 
 /**
@@ -47,11 +47,17 @@ if (file_exists($autoloader) && is_readable($autoloader))
 else
     throw new RuntimeException(sprintf(__("[JsonLD for WordPress] Can't require the autoloader in %s, it's either missing or non-readable. Check the autoloader in %s", "jsonld-for-wordpress"), basename(__FILE__), $autoloader));
 
+require_once(__DIR__ . "/framework/functions.php");
+
 class JsonLDForWP {
     public static $UID;
     public static $ROOT_URL = null;
+    public const ASSETS_PATH = __DIR__ . "/assets/";
+
     public const TEXT_DOMAIN = 'jsonld-for-wordpress';
+
     private static $_instance = null;
+
     public const VERSION = "0.1";
     public const MIN_PHP_VERSION = "8.1";
     public const MIN_WP_VERSION = "6.0";
@@ -63,6 +69,7 @@ class JsonLDForWP {
         try {
             $this->checkEnvironment();
         } catch (RuntimeException $e) {
+            AdminNotice::error($e->getMessage())->dismissible()->render();
         }
     }
 
