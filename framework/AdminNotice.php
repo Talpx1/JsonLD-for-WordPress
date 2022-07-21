@@ -7,15 +7,15 @@ class AdminNotice {
     private string|null $type = null;
     private bool $dismissible = false;
 
-    public static function create(string $text): AdminNotice {
+    public static function create(string $text): self {
         return new self($text);
     }
 
-    public static function error(string $text): AdminNotice {
+    public static function error(string $text): self {
         return (new self($text))->setType('error');
     }
 
-    public static function success(string $text): AdminNotice {
+    public static function success(string $text): self {
         return (new self($text))->setType('success');
     }
 
@@ -23,7 +23,7 @@ class AdminNotice {
         $this->text = $text;
     }
 
-    private function setType(string $type): AdminNotice {
+    private function setType(string $type): self {
         $this->type = $type;
         return $this;
     }
@@ -36,7 +36,7 @@ class AdminNotice {
         return $this->text;
     }
 
-    public function dismissible(): AdminNotice {
+    public function dismissible(): self {
         $this->dismissible = true;
         return $this;
     }

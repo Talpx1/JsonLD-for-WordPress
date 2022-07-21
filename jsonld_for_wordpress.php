@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace JsonLDForWP;
 
 use JsonLDForWP\Framework\AdminNotice;
+use JsonLDForWP\Framework\MenuPage;
+use JsonLDForWP\Framework\Settings\Enums\SettingTypes;
+use JsonLDForWP\Framework\Settings\Setting;
+use JsonLDForWP\Framework\Settings\SettingsSection;
 use RuntimeException;
 
 /**
@@ -53,6 +57,7 @@ class JsonLDForWP {
     public static $UID;
     public static $ROOT_URL = null;
     public const ASSETS_PATH = __DIR__ . "/assets/";
+    public const FRAMEWORK_PATH = __DIR__ . "/framework/";
 
     public const TEXT_DOMAIN = 'jsonld-for-wordpress';
 
@@ -66,11 +71,8 @@ class JsonLDForWP {
         self::$ROOT_URL = plugin_dir_url(__FILE__);
         self::$UID = plugin_basename(__FILE__);
 
-        try {
-            $this->checkEnvironment();
-        } catch (RuntimeException $e) {
-            AdminNotice::error($e->getMessage())->dismissible()->render();
-        }
+        $this->createMenus();
+        $this->createSettings();
     }
 
     public function checkEnvironment() {
@@ -78,8 +80,24 @@ class JsonLDForWP {
         if (!version_compare(get_bloginfo('version'), self::MIN_WP_VERSION, ">=")) throw new RuntimeException(sprintf(__("In order to run this plugin, WordPress version %s (or higher) is required. Your current WordPress version is %s. Please update WordPress."), self::MIN_WP_VERSION, get_bloginfo('version')));
     }
 
+    public function createMenus() {
+        MenuPage::create('JsonLD', "pages/settings")->setSlug('settings')->setCapability('manage_options')->isSettingsPage()->build();
+    }
+
+    public function createSettings() {
+        $general_section = SettingsSection::create(__('General', 'jsonld-for-wordpress'), self::TEXT_DOMAIN . '-settings');
+        $general_section->register();
+        Setting::create($general_section, 'test')->setType(SettingTypes::STRING)->register();
+    }
+
     public function pluginActivate() {
         if (!current_user_can('activate_plugins')) return;
+
+        try {
+            $this->checkEnvironment();
+        } catch (RuntimeException $e) {
+            die($e->getMessage());
+        }
     }
 
     public function pluginDeactivate() {

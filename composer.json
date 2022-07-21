@@ -30,6 +30,6 @@
     "require": {
         "thecodingmachine/safe": "2.2.x-dev",
         "squizlabs/php_codesniffer": "4.0.x-dev",
-        "twig/twig": "3.x-dev"
+        "latte/latte": "3.0.x-dev"
     }
 }
