@@ -2,23 +2,25 @@
 
 namespace JsonLDForWP\Framework;
 
+use JsonLDForWP\Framework\Settings\SettingsSection;
 use JsonLDForWP\JsonLDForWP;
 
 class MenuPage {
-    private string $page_title;
-    private string $menu_title;
-    private string $capability = "edit_posts";
-    private string $menu_slug;
-    private string $template;
-    private string $icon_url = '';
-    private int|null $position = null;
-    private array $data = [];
+    protected string $page_title;
+    protected string $menu_title;
+    protected string $capability = "edit_posts";
+    protected string $menu_slug;
+    protected string $template;
+    protected string $icon_url = '';
+    protected int|null $position = null;
+    protected array $data = [];
+
 
     public static function create(string $menu_title, string $template): self {
         return new self($menu_title, $template);
     }
 
-    private function __construct(string $menu_title, string $template) {
+    protected function __construct(string $menu_title, string $template) {
         $this->menu_title = $menu_title;
         $this->page_title = $menu_title;
         $this->menu_slug = JsonLDForWP::TEXT_DOMAIN . '-' . slugify($menu_title);
@@ -59,12 +61,7 @@ class MenuPage {
         return $this;
     }
 
-    public function isSettingsPage(): self {
-        $this->data['settings'] = $this->menu_slug;
-        return $this;
-    }
-
-    public function build(): void {
+    public function build(): self {
         add_action('admin_menu', fn () => add_menu_page(
             $this->page_title,
             $this->menu_title,
@@ -74,5 +71,7 @@ class MenuPage {
             $this->icon_url,
             $this->position,
         ));
+
+        return $this;
     }
 }

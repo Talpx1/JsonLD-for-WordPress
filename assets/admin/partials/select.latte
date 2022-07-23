@@ -1,0 +1,9 @@
+<select id="{$label_for}" name='{$label_for}'>
+    {foreach $options as $label => $value}
+        <option value="{$value}"
+            {if $current==$value}
+                selected
+            {/if}
+        >{$label}</option>
+    {/foreach}
+</select>

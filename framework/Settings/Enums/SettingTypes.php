@@ -15,11 +15,12 @@ enum SettingTypes: string {
     case EMAIL = 'email';
     case TEXTAREA = 'textarea';
     case URL = 'url';
+    case SELECT = 'select';
 
     public function sanitizeCallback(): string|null {
         try {
             return match ($this) {
-                self::STRING, self::BOOL, self::INT, self::NUMBER => 'sanitize_text_field',
+                self::STRING, self::BOOL, self::INT, self::NUMBER, self::SELECT => 'sanitize_text_field',
                 self::COLOR => 'sanitize_hex_color',
                 self::EMAIL => 'sanitize_email',
                 self::TEXTAREA => 'sanitize_textarea_field',
@@ -33,7 +34,7 @@ enum SettingTypes: string {
     public function realValue(): string {
         try {
             return match ($this) {
-                self::COLOR, self::EMAIL, self::TEXTAREA, self::URL => 'string',
+                self::COLOR, self::EMAIL, self::TEXTAREA, self::URL, self::SELECT => 'string',
             };
         } catch (\UnhandledMatchError $e) {
             return $this->value;
@@ -51,6 +52,7 @@ enum SettingTypes: string {
                 self::EMAIL => ['path' => 'partials/input', 'data' => ['type' => 'email']],
                 self::TEXTAREA => ['path' => 'partials/textarea', 'data' => []],
                 self::URL => ['path' => 'partials/input', 'data' => ['type' => 'url']],
+                self::SELECT => ['path' => 'partials/select', 'data' => []],
             };
         } catch (\UnhandledMatchError $e) {
             return null;

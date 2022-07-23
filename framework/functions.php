@@ -32,10 +32,12 @@ function slugify(string $string): string {
     return $slug;
 }
 
-function build_settings(string $string, string $submit_text = null): void {
+function build_settings(string $page_slug, string $submit_text = null): void {
+    if (isset($_GET['settings-updated'])) add_settings_error(JsonLDForWP::TEXT_DOMAIN . '-messages', JsonLDForWP::TEXT_DOMAIN . '_message', __('Settings Saved'), 'updated');
+    settings_errors(JsonLDForWP::TEXT_DOMAIN . '_message');
     echo '<form action="options.php" method="post">';
-    settings_fields('jsonld-for-wordpress-settings');
-    do_settings_sections('jsonld-for-wordpress-settings');
+    settings_fields($page_slug);
+    do_settings_sections($page_slug);
     submit_button($submit_text ?? __('Save'));
     echo '</form>';
 }

@@ -8,6 +8,7 @@ use JsonLDForWP\Framework\AdminNotice;
 use JsonLDForWP\Framework\MenuPage;
 use JsonLDForWP\Framework\Settings\Enums\SettingTypes;
 use JsonLDForWP\Framework\Settings\Setting;
+use JsonLDForWP\Framework\Settings\SettingsPage;
 use JsonLDForWP\Framework\Settings\SettingsSection;
 use RuntimeException;
 
@@ -81,13 +82,25 @@ class JsonLDForWP {
     }
 
     public function createMenus() {
-        MenuPage::create('JsonLD', "pages/settings")->setSlug('settings')->setCapability('manage_options')->isSettingsPage()->build();
     }
 
     public function createSettings() {
-        $general_section = SettingsSection::create(__('General', 'jsonld-for-wordpress'), self::TEXT_DOMAIN . '-settings');
-        $general_section->register();
-        Setting::create($general_section, 'test')->setType(SettingTypes::STRING)->register();
+        $settings_page = SettingsPage::create('JsonLD', "pages/settings")->setSlug('settings')->setCapability('manage_options')->build();
+
+        $priority_section = SettingsSection::create(__('Priority', 'jsonld-for-wordpress'), 'priority', $settings_page)->register();
+
+        $with = ['options' => [
+            __('CPT Settings', 'jsonld-for-wordpress') => 'cpt',
+            __('Category Settings', 'jsonld-for-wordpress') => 'category',
+            __('Post Settings', 'jsonld-for-wordpress') => 'post'
+        ]];
+
+        Setting::create($priority_section, 'Priority 1', 'priority-1')->setType(SettingTypes::SELECT)->with($with)->register();
+        Setting::create($priority_section, 'Priority 2', 'priority-2')->setType(SettingTypes::SELECT)->with($with)->register();
+        Setting::create($priority_section, 'Priority 3', 'priority-3')->setType(SettingTypes::SELECT)->with($with)->register();
+
+        $cpt_section = SettingsSection::create(__('CPT Settings', 'jsonld-for-wordpress'), 'cpt-settings', $settings_page)->register();
+        Setting::create($cpt_section, 'Select CPT', 'cpt')->setType(SettingTypes::SELECT)->with(['options' => get_post_types(['public' => true])])->register();
     }
 
     public function pluginActivate() {

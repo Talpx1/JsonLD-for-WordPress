@@ -1,0 +1,12 @@
+[ ] enum for all capabilities
+[ ] enum for all settings pages existing in wp
+[ ] test framework
+[ ] enum for possible json ld type
+[ ] settings tabs
+[ ] settings drag and drop
+[ ] create object/array from settings
+[ ] ui partials template
+[ ] wrap plugin constructor methods in a bootstrap.php file
+[ ] create file for settings definition and include it in bootstrap
+[ ] create file for menus definition and include it in bootstrap
+[ ] create php docs

@@ -20,13 +20,17 @@ class Setting {
     private mixed $default = null;
     private string|null $sanitize_callback = null;
     private string $class = '';
-    private array|null $template = null;
+    private string|null $template = null;
+    private array $data = [];
 
-    public static function create(SettingsSection|SettingsGroups|string $section, string $title): self {
-        return new self($section, $title);
+    public static function create(SettingsSection|SettingsGroups|string $section, string $title, string $name): self {
+        return new self($section, $title, $name);
     }
 
-    private function __construct(SettingsSection|SettingsGroups|string $section, string $title) {
+    private function __construct(SettingsSection|SettingsGroups|string $section, string $title, string $name) {
+        $this->title = $title;
+        $this->name = JsonLDForWP::TEXT_DOMAIN . '-' . slugify($name);
+
         if (is_a($section, SettingsGroups::class)) {
             $this->section = $section->value;
             $this->page = $section->value;
@@ -37,15 +41,13 @@ class Setting {
             $this->section = $section;
             $this->page = $section;
         }
-
-        $this->title = $title;
-        $this->name = JsonLDForWP::TEXT_DOMAIN . '-' . slugify($title);
     }
 
     public function setType(SettingTypes $type): self {
         $this->type = $type->realValue();
         $this->sanitize_callback = $type->sanitizeCallback();
-        $this->template = $type->template();
+        $this->template = $type->template()['path'];
+        $this->data = $type->template()['data'];
         return $this;
     }
 
@@ -54,9 +56,8 @@ class Setting {
         return $this;
     }
 
-    public function setName(string $name): self {
-        $this->name = $name;
-        return $this;
+    public function name(): string {
+        return $this->name;
     }
 
     public function setDescription(string $description): self {
@@ -76,8 +77,13 @@ class Setting {
         return $this;
     }
 
-    public function setTemplate(string $path, array $data = []): self {
-        $this->template = ['path' => $path, 'data' => $data];
+    public function setTemplate(string $path): self {
+        $this->template = $path;
+        return $this;
+    }
+
+    public function with(array $data): self {
+        $this->data = array_merge($this->data, $data);
         return $this;
     }
 
@@ -86,7 +92,7 @@ class Setting {
         return $this;
     }
 
-    public function register(callable|string|null $sanitize_callback = null): void {
+    public function register(callable|string|null $sanitize_callback = null): self {
         $args = [];
         if (isset($this->type)) $args['type'] = $this->type;
         if (isset($this->description)) $args['description'] = $this->description;
@@ -99,7 +105,7 @@ class Setting {
         if (isset($this->show_in_rest)) $args['show_in_rest'] = $this->show_in_rest;
         if (isset($this->default)) $args['default'] = $this->default;
 
-        add_action("admin_init", fn () => register_setting($this->section, $this->name, $args));
+        add_action("admin_init", fn () => register_setting($this->page, $this->name, $args));
 
         if (!isset($this->template))
             throw new RuntimeException(__("No setting template defined or available. Sometimes templates gets automatically set when specifying the type (setType) of the option. Alternatively define a template calling the 'setTemplate(path, data)' method on a Setting instance."));
@@ -107,10 +113,12 @@ class Setting {
         add_action("admin_init", fn () => add_settings_field(
             $this->name,
             $this->title,
-            fn ($args) => admin_asset($this->template['path'], array_merge($args, $this->template['data'])),
+            fn ($args) => admin_asset($this->template, array_merge($args, $this->data, ['current' => get_option($this->name)])),
             $this->page,
             $this->section,
             ['label_for' => $this->name, 'class' => $this->class]
         ));
+
+        return $this;
     }
 }

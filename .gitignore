@@ -1,7 +1,6 @@
 /vendor/
 *.log
-*.txt
-/wpcs/
+/framework/temp/*
 
 
 

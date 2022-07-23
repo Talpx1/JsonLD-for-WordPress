@@ -16,7 +16,7 @@ final class Templateea38b4f2c1 extends Latte\Runtime\Template
 		echo LR\Filters::escapeHtmlText(namespace\__('Settings')) /* line 2 */;
 		echo '</h1>
     ';
-		echo LR\Filters::escapeHtmlText(build_settings($settings)) /* line 3 */;
+		echo LR\Filters::escapeHtmlText(build_settings($page_slug)) /* line 3 */;
 		echo '
 </div>';
 	}
