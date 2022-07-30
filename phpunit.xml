@@ -2,7 +2,7 @@
 <phpunit 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
-    bootstrap="vendor/autoload.php"
+    bootstrap="tests/bootstrap.php"
     backupGlobals="false"
     colors="true"
     convertErrorsToExceptions="true"
@@ -10,11 +10,17 @@
     convertWarningsToExceptions="true"
 >
     <testsuites>
-        <testsuite name="Framework">
-            <directory>./tests/Framework/</directory>
+        <testsuite name="FrameworkUnit">
+            <directory suffix="Test.php">./tests/Framework/Unit</directory>
         </testsuite>
-        <testsuite name="Plugin">
-            <directory>./tests/Plugin/</directory>
+        <testsuite name="FrameworkFeature">
+            <directory suffix="Test.php">./tests/Framework/Feature</directory>
+        </testsuite>
+        <testsuite name="PluginUnit">
+            <directory suffix="Test.php">./tests/Plugin/Unit</directory>
+        </testsuite>
+        <testsuite name="PluginFeature">
+            <directory suffix="Test.php">./tests/Plugin/Feature</directory>
         </testsuite>
     </testsuites>
     

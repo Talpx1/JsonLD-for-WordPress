@@ -7,7 +7,10 @@
         "psr-4": {
             "JsonLDForWP\\Framework\\": "framework/",
             "JsonLDForWP\\Plugin\\": "plugin/"
-        }
+        },
+        "classmap": [
+            "jsonld_for_wordpress.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
@@ -25,7 +28,8 @@
         "thecodingmachine/phpstan-safe-rule": "^1.2",
         "phpunit/phpunit": "^9",
         "fzaninotto/faker": "1.9.x-dev",
-        "szepeviktor/phpstan-wordpress": "dev-master"
+        "szepeviktor/phpstan-wordpress": "dev-master",
+        "yoast/wp-test-utils": "1.x-dev"
     },
     "require": {
         "thecodingmachine/safe": "2.2.x-dev",
