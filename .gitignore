@@ -1,6 +1,7 @@
 /vendor/
 *.log
-/framework/temp/*
+/framework/temp/latte/*
+/framework/temp/wp/*
 
 
 

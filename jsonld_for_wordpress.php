@@ -54,22 +54,14 @@ else
 
 require_once(__DIR__ . "/framework/bootstrap.php");
 
-
 class JsonLDForWP {
     public static $UID;
     public static $ROOT_URL = null;
-    public const ASSETS_PATH = __DIR__ . "/assets/";
-    public const FRAMEWORK_PATH = __DIR__ . "/framework/";
-
-    public const TEXT_DOMAIN = 'jsonld-for-wordpress';
 
     private static $_instance = null;
 
-    public const VERSION = "0.1";
-    public const MIN_PHP_VERSION = "8.1";
-    public const MIN_WP_VERSION = "6.0";
-
     function __construct() {
+
         self::$ROOT_URL = plugin_dir_url(__FILE__);
         self::$UID = plugin_basename(__FILE__);
 
@@ -78,8 +70,8 @@ class JsonLDForWP {
     }
 
     public function checkEnvironment() {
-        if (!version_compare(PHP_VERSION, self::MIN_PHP_VERSION, ">=")) throw new RuntimeException(sprintf(__("In order to run this plugin, PHP version %s (or higher) is required. Your current PHP version is %s. Please update PHP."), self::MIN_PHP_VERSION, PHP_VERSION));
-        if (!version_compare(get_bloginfo('version'), self::MIN_WP_VERSION, ">=")) throw new RuntimeException(sprintf(__("In order to run this plugin, WordPress version %s (or higher) is required. Your current WordPress version is %s. Please update WordPress."), self::MIN_WP_VERSION, get_bloginfo('version')));
+        if (!version_compare(PHP_VERSION, config('enviroment', 'min_php_version'), ">=")) throw new RuntimeException(sprintf(__("In order to run this plugin, PHP version %s (or higher) is required. Your current PHP version is %s. Please update PHP."), config('enviroment', 'min_php_version'), PHP_VERSION));
+        if (!version_compare(get_bloginfo('version'), config('enviroment', 'min_wordpress_version'), ">=")) throw new RuntimeException(sprintf(__("In order to run this plugin, WordPress version %s (or higher) is required. Your current WordPress version is %s. Please update WordPress."), config('enviroment', 'min_wordpress_version'), get_bloginfo('version')));
     }
 
     public function createMenus() {

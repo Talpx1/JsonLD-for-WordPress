@@ -19,7 +19,7 @@ class SettingsSection {
         $this->title = $title;
         $this->page = is_a($page, SettingsPage::class) ? $page->slug() : $page;
         if (is_a($page, MenuPage::class)) $this->menu_page = $page;
-        $this->slug = JsonLDForWP::TEXT_DOMAIN . '-' . slugify($slug);
+        $this->slug = config('plugin', 'name') . '-' . slugify($slug);
     }
 
     public function slug(): string {

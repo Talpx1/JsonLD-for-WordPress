@@ -6,10 +6,8 @@ use JsonLDForWP\JsonLDForWP;
 /**
  * @var Latte\Engine
  */
-
-
 $latte = new Latte\Engine();
-$latte->setTempDirectory(JsonLDForWP::FRAMEWORK_PATH . "temp");
+$latte->setTempDirectory(__DIR__ . "/temp/latte");
 
 // ##### FAKER #####
 /**

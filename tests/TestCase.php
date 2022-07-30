@@ -23,8 +23,9 @@ class TestCase extends BrainMonkeyTestCase {
 
 
     public static function setUpBeforeClass(): void {
+        global $faker;
         self::$db = new PDO('sqlite::memory:');
-        self::$faker = \Faker\Factory::create();
+        self::$faker = &$faker;
     }
 
     public static function tearDownAfterClass(): void {

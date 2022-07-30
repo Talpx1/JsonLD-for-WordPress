@@ -29,7 +29,7 @@ class Setting {
 
     private function __construct(SettingsSection|SettingsGroups|string $section, string $title, string $name) {
         $this->title = $title;
-        $this->name = JsonLDForWP::TEXT_DOMAIN . '-' . slugify($name);
+        $this->name = config('plugin', 'name') . '-' . slugify($name);
 
         if (is_a($section, SettingsGroups::class)) {
             $this->section = $section->value;
@@ -56,10 +56,6 @@ class Setting {
         return $this;
     }
 
-    public function name(): string {
-        return $this->name;
-    }
-
     public function setDescription(string $description): self {
         $this->description = $description;
         return $this;
@@ -82,14 +78,22 @@ class Setting {
         return $this;
     }
 
+    public function setClass(string $class): self {
+        $this->class = $class;
+        return $this;
+    }
+
     public function with(array $data): self {
         $this->data = array_merge($this->data, $data);
         return $this;
     }
 
-    public function setClass(string $class): self {
-        $this->class = $class;
-        return $this;
+    public function name(): string {
+        return $this->name;
+    }
+
+    public function type(): string {
+        return $this->type;
     }
 
     public function register(callable|string|null $sanitize_callback = null): self {

@@ -29,7 +29,8 @@
         "phpunit/phpunit": "^9",
         "fzaninotto/faker": "1.9.x-dev",
         "szepeviktor/phpstan-wordpress": "dev-master",
-        "yoast/wp-test-utils": "1.x-dev"
+        "yoast/wp-test-utils": "1.x-dev",
+        "symfony/var-dumper": "6.2.x-dev"
     },
     "require": {
         "thecodingmachine/safe": "2.2.x-dev",
