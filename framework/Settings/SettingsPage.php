@@ -12,7 +12,6 @@ class SettingsPage extends MenuPage {
 
     private function __construct(string $menu_title, string $template) {
         parent::__construct($menu_title, $template);
-        return $this;
     }
 
     public function build(): self {

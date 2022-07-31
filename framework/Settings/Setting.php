@@ -44,14 +44,17 @@ class Setting {
     }
 
     public function setType(SettingTypes $type): self {
+        if (isset($this->default) && gettype($this->default) !== $type->realValue())
+            throw new TypeError(sprintf(__("The specified type %s (%s) is not compatible with the already set default %s. Please change the default or the type."), $type->realValue(), $type->name, gettype($this->default)));
+
         $this->type = $type->realValue();
         $this->sanitize_callback = $type->sanitizeCallback();
-        $this->template = $type->template()['path'];
-        $this->data = $type->template()['data'];
+        $this->template = $type->template()['path'] ?? null;
+        $this->data = $type->template()['data'] ?? [];
         return $this;
     }
 
-    public function setPage(string $page): self {
+    public function setPage(string $page): self { //TODO: add support for SettingPagesEnum and SettingPage instance
         $this->page = $page;
         return $this;
     }
@@ -92,8 +95,48 @@ class Setting {
         return $this->name;
     }
 
-    public function type(): string {
+    public function type(): string|null {
         return $this->type;
+    }
+
+    public function title(): string {
+        return $this->title;
+    }
+
+    public function section(): string {
+        return $this->section;
+    }
+
+    public function page(): string {
+        return $this->page;
+    }
+
+    public function description(): string|null {
+        return $this->description;
+    }
+
+    public function sanitizeCallback(): string|null {
+        return $this->sanitize_callback;
+    }
+
+    public function template(): string|null {
+        return $this->template;
+    }
+
+    public function data(): array {
+        return $this->data;
+    }
+
+    public function default(): mixed {
+        return $this->default;
+    }
+
+    public function class(): string {
+        return $this->class;
+    }
+
+    public function showInRest(): bool|null {
+        return $this->show_in_rest;
     }
 
     public function register(callable|string|null $sanitize_callback = null): self {

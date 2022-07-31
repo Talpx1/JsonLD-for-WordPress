@@ -2,8 +2,6 @@
 
 namespace JsonLDForWP\Framework\Settings;
 
-use JsonLDForWP\JsonLDForWP;
-
 class SettingsSection {
 
     private string $title;
@@ -11,14 +9,13 @@ class SettingsSection {
     private string|null $description = null;
     private string $page;
 
-    public static function create(string $title, string $slug, string|SettingsPage $page): self {
+    public static function create(string $title, string $slug, string|SettingsPage $page): self { //TODO: add support for an enum with all the WP settings pages to be passed as $page
         return new self($title, $slug, $page);
     }
 
-    private function __construct(string $title, string $slug, string|SettingsPage $page) {
+    private function __construct(string $title, string $slug, string|SettingsPage $page) { //TODO: add support for an enum with all the WP settings pages to be passed as $page
         $this->title = $title;
         $this->page = is_a($page, SettingsPage::class) ? $page->slug() : $page;
-        if (is_a($page, MenuPage::class)) $this->menu_page = $page;
         $this->slug = config('plugin', 'name') . '-' . slugify($slug);
     }
 
