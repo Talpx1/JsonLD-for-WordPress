@@ -41,10 +41,6 @@ class MenuPage {
         return $this;
     }
 
-    public function slug(): string {
-        return $this->menu_slug;
-    }
-
     public function setIcon(string $icon_url): self {
         $this->icon_url = $icon_url;
         return $this;
@@ -58,6 +54,38 @@ class MenuPage {
     public function with(array $data): self {
         $this->data = $data;
         return $this;
+    }
+
+    public function slug(): string {
+        return $this->menu_slug;
+    }
+
+    public function pageTitle(): string {
+        return $this->page_title;
+    }
+
+    public function menuTitle(): string {
+        return $this->menu_title;
+    }
+
+    public function capability(): string {
+        return $this->capability;
+    }
+
+    public function template(): string {
+        return $this->template;
+    }
+
+    public function icon(): string {
+        return $this->icon_url;
+    }
+
+    public function position(): int|null {
+        return $this->position;
+    }
+
+    public function data(): array {
+        return $this->data;
     }
 
     public function build(): self {

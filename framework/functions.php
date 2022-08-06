@@ -1,9 +1,5 @@
 <?php
 
-use JsonLDForWP\JsonLDForWP;
-
-use function Safe\highlight_string;
-
 /**
  * Render a Latte asset located in assets/admin.
  *
