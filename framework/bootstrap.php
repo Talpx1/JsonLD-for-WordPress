@@ -1,7 +1,4 @@
 <?php
-
-use JsonLDForWP\JsonLDForWP;
-
 // ##### TEMPLATE ENGINE #####
 /**
  * @var Latte\Engine

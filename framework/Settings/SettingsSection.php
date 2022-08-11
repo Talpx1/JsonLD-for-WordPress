@@ -19,6 +19,15 @@ class SettingsSection {
         $this->slug = config('plugin', 'name') . '-' . slugify($slug);
     }
 
+    public function setDescription(string $description): self {
+        $this->description = $description;
+        return $this;
+    }
+
+    public function title(): string {
+        return $this->title;
+    }
+
     public function slug(): string {
         return $this->slug;
     }
@@ -27,9 +36,8 @@ class SettingsSection {
         return $this->page;
     }
 
-    public function setDescription(string $description): self {
-        $this->description = $description;
-        return $this;
+    public function description(): string {
+        return $this->description;
     }
 
     public function register(): self {

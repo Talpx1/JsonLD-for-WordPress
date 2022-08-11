@@ -12,20 +12,19 @@ class TestCase extends BrainMonkeyTestCase {
      *
      * @var \Faker\Generator|null
      */
-    public static $faker;
+    protected static $faker;
 
     /**
      * DB connection variable
      *
      * @var PDO|null
      */
-    private static $db;
+    protected static $db;
 
 
     public static function setUpBeforeClass(): void {
-        global $faker;
         self::$db = new PDO('sqlite::memory:');
-        self::$faker = &$faker;
+        self::$faker = \Faker\Factory::create();
     }
 
     public static function tearDownAfterClass(): void {

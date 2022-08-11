@@ -11,7 +11,7 @@ class AdminNotice {
         return new self($text);
     }
 
-    public static function error(string $text): self {
+    public static function error(string $text): self { //TODO: create AdminNoticeType enum
         return (new self($text))->setType('error');
     }
 
@@ -36,8 +36,8 @@ class AdminNotice {
         return $this->text;
     }
 
-    public function dismissible(): self {
-        $this->dismissible = true;
+    public function setDismissible($dismissible = true): self {
+        $this->dismissible = $dismissible;
         return $this;
     }
 
