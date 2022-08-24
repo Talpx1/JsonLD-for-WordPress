@@ -1,3 +1,9 @@
 {
-    "phpcs.standard": "WordPress"
+    "phpcs.composerJsonPath": "./composer.json",
+    "phpcs.executablePath": "./vendor/bin/phpcs",
+    "phpcs.ignorePatterns": [
+        "./vendor",
+        "./tools",
+        "./.vscode"
+    ]
 }

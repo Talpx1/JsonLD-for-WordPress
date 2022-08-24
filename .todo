@@ -1,7 +1,6 @@
 [ ] enum for all capabilities
 [ ] enum for all settings pages existing in wp
-[ ] test framework
-[ ] enum for possible json ld type
+[ ] enum for possible json ld types
 [ ] settings tabs
 [ ] settings drag and drop
 [ ] create object/array from settings
@@ -11,11 +10,11 @@
 [ ] create file for menus definition and include it in bootstrap
 [ ] create php docs
 [ ] load bootstrap and function via composer
-[ ] fix phpunit "no test executed" via cli
 [ ] global file to perform checks and require autoloader
 [ ] add ABSPATH checks on all files
 [ ] create index.php with silence is golden in each dir
 [ ] move and group const in separate file
-[ ] remove options from db in uninstall.php
-[ ] block uninstall for local environment
-[ ] config or env file to set the environment and other stuff
+[ ] test remove options from db in uninstall.php
+[ ] test block uninstall for local environment
+[ ] create Enviorments enum
+[ ] test Thing

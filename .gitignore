@@ -2,6 +2,7 @@
 *.log
 /framework/temp/latte/*
 /framework/temp/wp/*
+/tools/*/vendor/
 
 
 

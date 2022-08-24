@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace JsonLDForWP;
 
-use JsonLDForWP\Framework\AdminNotice;
-use JsonLDForWP\Framework\MenuPage;
 use JsonLDForWP\Framework\Settings\Enums\SettingTypes;
 use JsonLDForWP\Framework\Settings\Setting;
 use JsonLDForWP\Framework\Settings\SettingsPage;
@@ -13,10 +11,10 @@ use JsonLDForWP\Framework\Settings\SettingsSection;
 use RuntimeException;
 
 /**
- * @package JsonLDForWP
- * @author Talp1 <https://github.com/Talpx1>
+ * @package   JsonLDForWP
+ * @author    Talp1 <https://github.com/Talpx1>
  * @copyright 2022 Talp1
- * @license All Rights Reserved
+ * @license   All Rights Reserved
  */
 
 /*
@@ -46,22 +44,21 @@ THE SOFTWARE.
 */
 defined('ABSPATH') || die('[JsonLD for WordPress] Direct access is not allowed!');
 
-$autoloader = __DIR__ . '/vendor/autoload.php';
-if (file_exists($autoloader) && is_readable($autoloader))
+$autoloader = __DIR__.'/vendor/autoload.php';
+if (file_exists($autoloader) && is_readable($autoloader)) {
     require_once $autoloader;
-else
-    throw new RuntimeException(sprintf(__("[JsonLD for WordPress] Can't require the autoloader in %s, it's either missing or non-readable. Check the autoloader in %s", "jsonld-for-wordpress"), basename(__FILE__), $autoloader));
+} else {
+    throw new RuntimeException(sprintf(__("[JsonLD for WordPress] Can't require the autoloader in %s, it's either missing or non-readable. Check the autoloader in %s", 'jsonld-for-wordpress'), basename(__FILE__), $autoloader));
+}
 
-require_once(__DIR__ . "/framework/bootstrap.php");
+require_once __DIR__.'/framework/bootstrap.php';
 
 class JsonLDForWP {
     public static $UID;
     public static $ROOT_URL = null;
+    private static $instance = null;
 
-    private static $_instance = null;
-
-    function __construct() {
-
+    private function __construct() {
         self::$ROOT_URL = plugin_dir_url(__FILE__);
         self::$UID = plugin_basename(__FILE__);
 
@@ -70,22 +67,26 @@ class JsonLDForWP {
     }
 
     public function checkEnvironment() {
-        if (!version_compare(PHP_VERSION, config('enviroment', 'min_php_version'), ">=")) throw new RuntimeException(sprintf(__("In order to run this plugin, PHP version %s (or higher) is required. Your current PHP version is %s. Please update PHP."), config('enviroment', 'min_php_version'), PHP_VERSION));
-        if (!version_compare(get_bloginfo('version'), config('enviroment', 'min_wordpress_version'), ">=")) throw new RuntimeException(sprintf(__("In order to run this plugin, WordPress version %s (or higher) is required. Your current WordPress version is %s. Please update WordPress."), config('enviroment', 'min_wordpress_version'), get_bloginfo('version')));
+        if (!version_compare(PHP_VERSION, config('enviroment', 'min_php_version'), '>=')) {
+            throw new RuntimeException(sprintf(__('In order to run this plugin, PHP version %s (or higher) is required. Your current PHP version is %s. Please update PHP.'), config('enviroment', 'min_php_version'), PHP_VERSION));
+        }
+        if (!version_compare(get_bloginfo('version'), config('enviroment', 'min_wordpress_version'), '>=')) {
+            throw new RuntimeException(sprintf(__('In order to run this plugin, WordPress version %s (or higher) is required. Your current WordPress version is %s. Please update WordPress.'), config('enviroment', 'min_wordpress_version'), get_bloginfo('version')));
+        }
     }
 
     public function createMenus() {
     }
 
     public function createSettings() {
-        $settings_page = SettingsPage::create('JsonLD', "pages/settings")->setSlug('settings')->setCapability('manage_options')->build();
+        $settings_page = SettingsPage::create('JsonLD', 'pages/settings')->setSlug('settings')->setCapability('manage_options')->build();
 
         $priority_section = SettingsSection::create(__('Priority', 'jsonld-for-wordpress'), 'priority', $settings_page)->register();
 
         $with = ['options' => [
             __('CPT Settings', 'jsonld-for-wordpress') => 'cpt',
             __('Category Settings', 'jsonld-for-wordpress') => 'category',
-            __('Post Settings', 'jsonld-for-wordpress') => 'post'
+            __('Post Settings', 'jsonld-for-wordpress') => 'post',
         ]];
 
         Setting::create($priority_section, 'Priority 1', 'priority-1')->setType(SettingTypes::SELECT)->with($with)->register();
@@ -97,7 +98,9 @@ class JsonLDForWP {
     }
 
     public function pluginActivate() {
-        if (!current_user_can('activate_plugins')) return;
+        if (!current_user_can('activate_plugins')) {
+            return;
+        }
 
         try {
             $this->checkEnvironment();
@@ -107,16 +110,22 @@ class JsonLDForWP {
     }
 
     public function pluginDeactivate() {
-        if (!current_user_can('activate_plugins')) return;
+        if (!current_user_can('activate_plugins')) {
+            return;
+        }
     }
 
     public static function instance() {
-        if (is_null(self::$_instance)) self::$_instance = new self();
-        return self::$_instance;
+        if (is_null(self::$instance)) {
+            self::$instance = new self();
+        }
+        return self::$instance;
     }
 }
 
-if (!class_exists('JsonLDForWP\\JsonLDForWP')) die("[JsonLD for WordPress] Unable to initialize!");
+if (!class_exists('JsonLDForWP\\JsonLDForWP')) {
+    die('[JsonLD for WordPress] Unable to initialize!');
+}
 
 register_activation_hook(__FILE__, [JsonLDForWP::instance(), 'pluginActivate']);
 register_deactivation_hook(__FILE__, [JsonLDForWP::instance(), 'pluginDeactivate']);
