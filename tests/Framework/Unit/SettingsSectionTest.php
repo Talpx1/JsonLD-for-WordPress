@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Framework\Unit;
+namespace JsonLDForWP\Tests\Framework\Unit;
 
 use JsonLDForWP\Framework\Settings\SettingsPage;
 use JsonLDForWP\Framework\Settings\SettingsSection;

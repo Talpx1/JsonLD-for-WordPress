@@ -1,28 +1,29 @@
 <?php 
 
-namespace Plugin\Classes\Entities;
+namespace JsonLDForWP\Plugin\Classes\Entities;
+
 use ReflectionClass;
 use ReflectionUnionType;
-use Plugin\Classes\Entities\Interfaces\WithMessages;
-use Plugin\Classes\Entities\Interfaces\WithWarnings;
+use JsonLDForWP\Plugin\Classes\Entities\Interfaces\WithWarnings;
+use JsonLDForWP\Plugin\Classes\Entities\Interfaces\Entity;
 
 class Thing implements Entity, WithWarnings{
-    protected URL|null $additionalType = null;
-    protected Text|null $alternateName = null;
-    protected Text|null $description = null;
-    protected Text|null $disambiguatingDescription = null;
-    protected PropertyValue|Text|URL|null $identifier = null;
-    protected ImageObject|URL|null $image = null;
-    protected CreativeWork|URL|null $mainEntityOfPage = null;
-    protected Text|null $name = null;
+    protected string|null $additionalType = null;
+    protected string|null $alternateName = null;
+    protected string|null $description = null;
+    protected string|null $disambiguatingDescription = null;
+    protected PropertyValue|string|null $identifier = null;
+    protected ImageObject|string|null $image = null;
+    protected CreativeWork|string|null $mainEntityOfPage = null;
+    protected string|null $name = null;
     protected Action|null $potentialAction = null;
-    protected URL|null $sameAs = null;
+    protected string|null $sameAs = null;
     protected CreativeWork|Event|null $subjectOf = null;
-    protected URL|null $url = null;
+    protected string|null $string = null;
 
-    public function __construct(array $data, private string $description) {
+    public function __construct(array $data) {
         foreach($data as $property => $value){
-            $this?->{$property} = $value;
+            $this->{$property} = $value;
         }
     }
 
@@ -33,10 +34,10 @@ class Thing implements Entity, WithWarnings{
     }
 
     public function description(): string {
-        return $this->description;
+        return __('The most generic type of item.', 'jsonld-for-wordpress');
     }
 
-    public function getFields(): array{
+    public function getFields(): array {
         $properties = (new ReflectionClass($this))->getProperties();
         $fields = [];
         foreach($properties as $property){

@@ -1,8 +1,8 @@
 <?php 
 
-namespace Plugin\Classes\Entities\Things;
+namespace JsonLDForWP\Plugin\Classes\Entities\Things;
 
-use Plugin\Classes\Entities\Thing;
+use JsonLDForWP\Plugin\Classes\Entities\Thing;
 
 class Event extends Thing{
     protected Thing|null $about = null;

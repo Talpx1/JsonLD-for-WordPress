@@ -1,6 +1,6 @@
 <?php 
 
-namespace Plugin\Classes\Entities\Interfaces;
+namespace JsonLDForWP\Plugin\Classes\Entities\Interfaces;
 
 interface WithMessages{
     public function messages(): array;

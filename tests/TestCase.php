@@ -33,6 +33,8 @@ class TestCase extends BrainMonkeyTestCase {
     }
 
     public function setUp(): void {
+        parent::set_up();
+        
         self::$db->query(
             "PRAGMA writable_schema = 1;
             DELETE FROM sqlite_master WHERE TYPE IN ('table', 'index', 'trigger');
@@ -40,8 +42,6 @@ class TestCase extends BrainMonkeyTestCase {
             VACUUM;
             PRAGMA INTEGRITY_CHECK;"
         );
-
-        parent::set_up();
     }
 
     public function tearDown(): void {

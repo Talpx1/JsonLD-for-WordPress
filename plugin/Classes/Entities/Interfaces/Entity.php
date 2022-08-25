@@ -1,7 +1,8 @@
 <?php 
 
-namespace Plugin\Classes\Entities\Interfaces;
+namespace JsonLDForWP\Plugin\Classes\Entities\Interfaces;
 
 interface Entity{
     public function getFields(): array;
+    public function description(): string;
 }

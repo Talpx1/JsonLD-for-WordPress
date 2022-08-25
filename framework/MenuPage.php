@@ -2,8 +2,6 @@
 
 namespace JsonLDForWP\Framework;
 
-use JsonLDForWP\JsonLDForWP;
-
 class MenuPage {
     protected string $page_title;
     protected string $menu_title;
