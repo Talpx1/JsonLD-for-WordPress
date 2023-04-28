@@ -31,7 +31,9 @@
         "szepeviktor/phpstan-wordpress": "dev-master",
         "yoast/wp-test-utils": "1.x-dev",
         "symfony/var-dumper": "6.2.x-dev",
-        "squizlabs/php_codesniffer": "3.*"
+        "squizlabs/php_codesniffer": "3.*",
+        "symfony/panther": "^2.0",
+        "dbrekelmans/bdi": "^1.0"
     },
     "require": {
         "thecodingmachine/safe": "2.2.x-dev",

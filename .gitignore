@@ -1,8 +1,13 @@
 /vendor/
 *.log
+*.exe
 /framework/temp/latte/*
 /framework/temp/wp/*
 /tools/*/vendor/
+.phpunit.result.cache
+/drivers/**
+/tools/*.txt
+.phpunit.result.cache
 
 
 

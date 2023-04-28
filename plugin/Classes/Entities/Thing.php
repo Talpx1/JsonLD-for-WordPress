@@ -2,12 +2,14 @@
 
 namespace JsonLDForWP\Plugin\Classes\Entities;
 
+use JsonLDForWP\Plugin\Classes\Entities\Things\Action;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Event;
+use JsonLDForWP\Plugin\Traits\Entities\HasHighlyGenericWarning;
+use JsonLDForWP\Plugin\Traits\Entities\HasNoMessages;
 use ReflectionClass;
 use ReflectionUnionType;
-use JsonLDForWP\Plugin\Classes\Entities\Interfaces\WithWarnings;
-use JsonLDForWP\Plugin\Classes\Entities\Interfaces\Entity;
 
-class Thing implements Entity, WithWarnings{
+class Thing{
     protected string|null $additionalType = null;
     protected string|null $alternateName = null;
     protected string|null $description = null;
@@ -19,18 +21,13 @@ class Thing implements Entity, WithWarnings{
     protected Action|null $potentialAction = null;
     protected string|null $sameAs = null;
     protected CreativeWork|Event|null $subjectOf = null;
-    protected string|null $string = null;
+
+    use HasNoMessages, HasHighlyGenericWarning;
 
     public function __construct(array $data) {
         foreach($data as $property => $value){
             $this->{$property} = $value;
         }
-    }
-
-    public function warnings(): array {
-        return [
-            __('This is a highly generic entity and should NEVER be used', 'jsonld-for-wordpress')
-        ];
     }
 
     public function description(): string {

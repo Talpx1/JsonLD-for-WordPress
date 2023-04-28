@@ -3,6 +3,8 @@
 namespace JsonLDForWP\Plugin\Classes\Entities\Things;
 
 use JsonLDForWP\Plugin\Classes\Entities\Thing;
+use JsonLDForWP\Plugin\Traits\Entities\HasNoMessages;
+use JsonLDForWP\Plugin\Traits\Entities\HasNoWarnings;
 
 class Event extends Thing{
     protected Thing|null $about = null;
@@ -43,4 +45,10 @@ class Event extends Thing{
     protected Text|null $typicalAgeRange = null;
     protected CreativeWork|null $workFeatured = null;
     protected CreativeWork|null $workPerformed = null;
+
+    use HasNoMessages, HasNoWarnings;
+
+    public function description():string {
+        return __("An event happening at a certain time and location, such as a concert, lecture, or festival. Ticketing information may be added via the offers property. Repeated events may be structured as separate Event objects.", 'jsonld-for-wordpress');
+    }
 }
