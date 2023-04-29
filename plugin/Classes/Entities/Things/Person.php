@@ -73,4 +73,4 @@ class Person extends Thing{
         return __("A person (alive, dead, undead, or fictional).", 'jsonld-for-wordpress');
     }
 
-} debugger eval code:10:9
+}

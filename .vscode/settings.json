@@ -1,9 +1,19 @@
 {
-    "phpcs.composerJsonPath": "./composer.json",
-    "phpcs.executablePath": "./vendor/bin/phpcs",
-    "phpcs.ignorePatterns": [
-        "./vendor",
-        "./tools",
-        "./.vscode"
+	"phpcs.composerJsonPath": "./composer.json",
+	"phpcs.executablePath": "./vendor/bin/phpcs",
+	"phpcs.ignorePatterns": ["./vendor", "./tools", "./.vscode"],
+	"php.problems.exclude": {
+        "**/tools/php-cs-fixer/vendor/":true,
+        "vendor/":true
+    },
+    "cSpell.ignorePaths": [
+        "package-lock.json",
+        "node_modules",
+        "vscode-extension",
+        ".git/objects",
+        ".vscode",
+        ".vscode-insiders",
+        "vendor",
+        "tools/php-cs-fixer/vendor"
     ]
 }
