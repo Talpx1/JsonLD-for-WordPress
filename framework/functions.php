@@ -1,5 +1,7 @@
 <?php
 
+use JsonLDForWP\Framework\Configs\Enums\Environments;
+
 /**
  * Render a Latte asset located in assets/admin.
  *
@@ -127,4 +129,15 @@ function config_path(): string {
  */
 function framework_temp_path(): string {
     return framework_path() . "temp/";
+}
+
+/**
+ * Returns currently set environment.
+ * Automatically detects if the app is running a test.
+ * Should be preferred over getting the environment from config.
+ *
+ * @return \JsonLDForWP\Framework\Configs\Enums\Environments
+ */
+function environment(): Environments {
+    return isRunningTest() ? Environments::TESTING : config('environment', 'environment');
 }
