@@ -1,0 +1,1 @@
+document.querySelectorAll(".superPaths br").forEach(br => br.previousElementSibling.classList.add("new-hierarchy"))

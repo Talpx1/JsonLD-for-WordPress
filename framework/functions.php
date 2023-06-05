@@ -37,7 +37,7 @@ function slugify(string $string): string {
  * @param string $page_slug slug of the setting page, available in Latte page templates via the $page_slug variable.
  * @param string|null $submit_text text to use for the 'submit'/'save' button.
  * @return void
- * 
+ *
  * @see https://developer.wordpress.org/reference/functions/add_settings_error/
  * @see https://developer.wordpress.org/reference/functions/settings_errors/
  * @see https://developer.wordpress.org/reference/functions/settings_fields/
@@ -96,7 +96,7 @@ function root_path(): string {
  * @return string
  */
 function assets_path(): string {
-    return root_path() . "/assets/";
+    return root_path() . "assets/";
 }
 
 /**
@@ -106,7 +106,7 @@ function assets_path(): string {
  * @return string
  */
 function framework_path(): string {
-    return root_path() . "/framework/";
+    return root_path() . "framework/";
 }
 
 /**

@@ -1,0 +1,1 @@
+return [...document.querySelectorAll(".definition-table:first-of-type tbody .supertype:first-of-type ~ tr:not(.supertype):not(.not-to-consider) td.prop-ect a")].map(a => a.textContent)

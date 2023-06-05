@@ -1,0 +1,1 @@
+return document.querySelector("div.description").textContent.replaceAll('"', "'").replaceAll("\n", "\\n")

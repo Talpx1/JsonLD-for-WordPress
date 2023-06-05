@@ -1,27 +1,50 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace JsonLDForWP\Plugin\Classes\Entities\Things;
 
 use JsonLDForWP\Plugin\Classes\Entities\Thing;
-use JsonLDForWP\Plugin\Traits\Entities\HasHighlyGenericWarning;
-use JsonLDForWP\Plugin\Traits\Entities\HasNoWarnings;
-use JsonLDForWP\Plugin\Traits\Entities\HasNoMessages;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\DefinedTerms\CategoryCodes\MedicalCodes\Things\MedicalEntities\MedicalIntangibles\MedicalCode;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\Grant;
+use JsonLDForWP\Plugin\Classes\Entities\Things\MedicalEntities\MedicalGuideline;
+use JsonLDForWP\Plugin\Classes\Entities\Things\MedicalEntities\MedicalIntangibles\DrugLegalStatus;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\Enumerations\MedicalEnumeration;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\Enumerations\MedicalEnumerations\MedicineSystem;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Organization;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\Enumerations\MedicalEnumerations\MedicalSpecialties\Things\Intangibles\Enumerations\Specialties\MedicalSpecialty;
+use JsonLDForWP\Plugin\Classes\Entities\Things\MedicalEntities\MedicalStudy;
+use JsonLDForWP\Plugin\Classes\Entities\Things\CreativeWorks\MediaObjects\TextObject;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\StructuredValues\PropertyValue;
+use JsonLDForWP\Plugin\Classes\Entities\Things\CreativeWorks\MediaObjects\ImageObject;
+use JsonLDForWP\Plugin\Classes\Entities\Things\CreativeWork;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Action;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Event;
 
+/**
+* @package JsonLDForWP
+*/
 class MedicalEntity extends Thing{
+	protected MedicalCode|null $code = null;
+	protected Grant|null $funding = null;
+	protected MedicalGuideline|null $guideline = null;
+	protected DrugLegalStatus|MedicalEnumeration|string|null $legalStatus = null;
+	protected MedicineSystem|null $medicineSystem = null;
+	protected Organization|null $recognizingAuthority = null;
+	protected MedicalSpecialty|null $relevantSpecialty = null;
+	protected MedicalStudy|null $study = null;
+	protected string|null $additionalType = null;
+	protected string|null $alternateName = null;
+	protected string|TextObject|null $description = null;
+	protected string|null $disambiguatingDescription = null;
+	protected PropertyValue|string|null $identifier = null;
+	protected ImageObject|string|null $image = null;
+	protected CreativeWork|string|null $mainEntityOfPage = null;
+	protected string|null $name = null;
+	protected Action|null $potentialAction = null;
+	protected string|null $sameAs = null;
+	protected CreativeWork|Event|null $subjectOf = null;
+	protected string|null $url = null;
 
-    public MedicalCode|null $code = null;
-    public Grant|null $funding = null;
-    public MedicalGuideline|null $guideline = null;
-    public DrugLegalStatus|MedicalEnumeration|string|null $legalStatus = null;
-    public MedicineSystem|null $medicineSystem = null;
-    public Organization|null $recognizingAuthority = null;
-    public MedicalSpecialty|null $relevantSpecialty = null;
-    public MedicalStudy|null $study = null;
-
-    use HasHighlyGenericWarning, HasNoMessages;
-
-    public function description():string {
-        return __("The most generic type of entity related to health and the practice of medicine.", 'jsonld-for-wordpress');
-    }
-
+	public function description():string {
+		return __("The most generic type of entity related to health and the practice of medicine.", 'jsonld-for-wordpress');
+	}
 }

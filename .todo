@@ -17,4 +17,4 @@
 [ ] test remove options from db in uninstall.php
 [ ] test block uninstall for local environment
 [ ] create Enviorments enum
-[ ] test Thing
+[ ] test Generation

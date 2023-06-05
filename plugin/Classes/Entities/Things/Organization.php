@@ -1,76 +1,118 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace JsonLDForWP\Plugin\Classes\Entities\Things;
 
 use JsonLDForWP\Plugin\Classes\Entities\Thing;
-use JsonLDForWP\Plugin\Traits\Entities\HasNoWarnings;
-use JsonLDForWP\Plugin\Traits\Entities\HasNoMessages;
+use JsonLDForWP\Plugin\Classes\Entities\Things\CreativeWork;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\StructuredValues\ContactPoints\PostalAddress;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\Ratings\AggregateRating;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Person;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Places\AdministrativeArea;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\StructuredValues\GeoShape;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Place;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\Brand;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\StructuredValues\ContactPoint;
+use JsonLDForWP\Plugin\Classes\Entities\DataTypes\Date;
+use JsonLDForWP\Plugin\Classes\Entities\Things\CreativeWorks\Article;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Event;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\Grant;
+use JsonLDForWP\Plugin\Classes\Entities\Things\CreativeWorks\EducationalOccupationalCredential;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\MerchantReturnPolicy;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\ItemLists\OfferCatalog;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\StructuredValues\InteractionCounter;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\DefinedTerm;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\Language;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\VirtualLocation;
+use JsonLDForWP\Plugin\Classes\Entities\Things\CreativeWorks\MediaObjects\ImageObject;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\Offer;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\ProgramMembership;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\Enumerations\NonprofitType;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\StructuredValues\QuantitativeValue;
+use JsonLDForWP\Plugin\Classes\Entities\Things\CreativeWorks\WebPages\AboutPage;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\StructuredValues\OwnershipInfo;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Product;
+use JsonLDForWP\Plugin\Classes\Entities\Things\CreativeWorks\Review;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\Demand;
+use JsonLDForWP\Plugin\Classes\Entities\Things\CreativeWorks\MediaObjects\TextObject;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Intangibles\StructuredValues\PropertyValue;
+use JsonLDForWP\Plugin\Classes\Entities\Things\Action;
 
+/**
+* @package JsonLDForWP
+*/
 class Organization extends Thing{
+	protected CreativeWork|string|null $actionableFeedbackPolicy = null;
+	protected PostalAddress|string|null $address = null;
+	protected AggregateRating|null $aggregateRating = null;
+	protected Person|null $alumni = null;
+	protected AdministrativeArea|GeoShape|Place|string|null $areaServed = null;
+	protected string|null $award = null;
+	protected Brand|Organization|null $brand = null;
+	protected ContactPoint|null $contactPoint = null;
+	protected CreativeWork|string|null $correctionsPolicy = null;
+	protected Organization|null $department = null;
+	protected Date|null $dissolutionDate = null;
+	protected CreativeWork|string|null $diversityPolicy = null;
+	protected Article|string|null $diversityStaffingReport = null;
+	protected string|null $duns = null;
+	protected string|null $email = null;
+	protected Person|null $employee = null;
+	protected CreativeWork|string|null $ethicsPolicy = null;
+	protected Event|null $event = null;
+	protected string|null $faxNumber = null;
+	protected Person|null $founder = null;
+	protected Date|null $foundingDate = null;
+	protected Place|null $foundingLocation = null;
+	protected Organization|Person|null $funder = null;
+	protected Grant|null $funding = null;
+	protected string|null $globalLocationNumber = null;
+	protected EducationalOccupationalCredential|null $hasCredential = null;
+	protected MerchantReturnPolicy|null $hasMerchantReturnPolicy = null;
+	protected OfferCatalog|null $hasOfferCatalog = null;
+	protected Place|null $hasPOS = null;
+	protected InteractionCounter|null $interactionStatistic = null;
+	protected string|null $isicV4 = null;
+	protected string|null $iso6523Code = null;
+	protected DefinedTerm|string|null $keywords = null;
+	protected string|Thing|null $knowsAbout = null;
+	protected Language|string|null $knowsLanguage = null;
+	protected string|null $legalName = null;
+	protected string|null $leiCode = null;
+	protected Place|PostalAddress|string|VirtualLocation|null $location = null;
+	protected ImageObject|string|null $logo = null;
+	protected Offer|null $makesOffer = null;
+	protected Organization|Person|null $member = null;
+	protected Organization|ProgramMembership|null $memberOf = null;
+	protected string|null $naics = null;
+	protected NonprofitType|null $nonprofitStatus = null;
+	protected QuantitativeValue|null $numberOfEmployees = null;
+	protected AboutPage|CreativeWork|string|null $ownershipFundingInfo = null;
+	protected OwnershipInfo|Product|null $owns = null;
+	protected Organization|null $parentOrganization = null;
+	protected CreativeWork|string|null $publishingPrinciples = null;
+	protected Review|null $review = null;
+	protected Demand|null $seeks = null;
+	protected string|null $slogan = null;
+	protected Organization|Person|null $sponsor = null;
+	protected Organization|null $subOrganization = null;
+	protected string|null $taxID = null;
+	protected string|null $telephone = null;
+	protected CreativeWork|string|null $unnamedSourcesPolicy = null;
+	protected string|null $vatID = null;
+	protected string|null $additionalType = null;
+	protected string|null $alternateName = null;
+	protected string|TextObject|null $description = null;
+	protected string|null $disambiguatingDescription = null;
+	protected PropertyValue|string|null $identifier = null;
+	protected ImageObject|string|null $image = null;
+	protected CreativeWork|string|null $mainEntityOfPage = null;
+	protected string|null $name = null;
+	protected Action|null $potentialAction = null;
+	protected string|null $sameAs = null;
+	protected CreativeWork|Event|null $subjectOf = null;
+	protected string|null $url = null;
 
-    public CreativeWork|string|null $actionableFeedbackPolicy = null;
-    public PostalAddress|string|null $address = null;
-    public AggregateRating|null $aggregateRating = null;
-    public Person|null $alumni = null;
-    public AdministrativeArea|GeoShape|Place|string|null $areaServed = null;
-    public string|null $award = null;
-    public Brand|Organization|null $brand = null;
-    public ContactPoint|null $contactPoint = null;
-    public CreativeWork|string|null $correctionsPolicy = null;
-    public Organization|null $department = null;
-    public Date|null $dissolutionDate = null;
-    public CreativeWork|string|null $diversityPolicy = null;
-    public Article|string|null $diversityStaffingReport = null;
-    public string|null $duns = null;
-    public string|null $email = null;
-    public Person|null $employee = null;
-    public CreativeWork|string|null $ethicsPolicy = null;
-    public Event|null $event = null;
-    public string|null $faxNumber = null;
-    public Person|null $founder = null;
-    public Date|null $foundingDate = null;
-    public Place|null $foundingLocation = null;
-    public Organization|Person|null $funder = null;
-    public Grant|null $funding = null;
-    public string|null $globalLocationNumber = null;
-    public EducationalOccupationalCredential|null $hasCredential = null;
-    public MerchantReturnPolicy|null $hasMerchantReturnPolicy = null;
-    public OfferCatalog|null $hasOfferCatalog = null;
-    public Place|null $hasPOS = null;
-    public InteractionCounter|null $interactionStatistic = null;
-    public string|null $isicV4 = null;
-    public string|null $iso6523Code = null;
-    public DefinedTerm|string|null $keywords = null;
-    public string|Thing|null $knowsAbout = null;
-    public Language|string|null $knowsLanguage = null;
-    public string|null $legalName = null;
-    public string|null $leiCode = null;
-    public Place|PostalAddress|string|VirtualLocation|null $location = null;
-    public ImageObject|string|null $logo = null;
-    public Offer|null $makesOffer = null;
-    public Organization|Person|null $member = null;
-    public Organization|ProgramMembership|null $memberOf = null;
-    public string|null $naics = null;
-    public NonprofitType|null $nonprofitStatus = null;
-    public QuantitativeValue|null $numberOfEmployees = null;
-    public AboutPage|CreativeWork|string|null $ownershipFundingInfo = null;
-    public OwnershipInfo|Product|null $owns = null;
-    public Organization|null $parentOrganization = null;
-    public CreativeWork|string|null $publishingPrinciples = null;
-    public Review|null $review = null;
-    public Demand|null $seeks = null;
-    public string|null $slogan = null;
-    public Organization|Person|null $sponsor = null;
-    public Organization|null $subOrganization = null;
-    public string|null $taxID = null;
-    public string|null $telephone = null;
-    public CreativeWork|string|null $unnamedSourcesPolicy = null;
-    public string|null $vatID = null;
-
-    use HasNoWarnings, HasNoMessages;
-
-    public function description():string {
-        return __("An organization such as a school, NGO, corporation, club, etc.", 'jsonld-for-wordpress');
-    }
-
+	public function description():string {
+		return __("An organization such as a school, NGO, corporation, club, etc.", 'jsonld-for-wordpress');
+	}
 }

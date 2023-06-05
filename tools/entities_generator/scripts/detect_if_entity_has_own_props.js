@@ -1,0 +1,1 @@
+return document.querySelector(".definition-table:first-of-type tbody .supertype:not(.not-to-consider) a").textContent == document.querySelector("div.superPaths a.new-hierarchy").textContent

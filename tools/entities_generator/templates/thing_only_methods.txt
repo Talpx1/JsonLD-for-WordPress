@@ -1,0 +1,17 @@
+    public function __construct(array $data) {
+        foreach($data as $property => $value){
+            $this->{$property} = $value;
+        }
+    }
+
+    public function getFields(): array {
+        $properties = (new \ReflectionClass($this))->getProperties();
+        $fields = [];
+        foreach($properties as $property){
+            $prop_type = $property->getType();
+            if(is_a($prop_type, \ReflectionUnionType::class)) {
+                foreach($prop_type->getTypes() as $type) $fields[$property->getName()][] = $type->getName();
+            } else $fields[$property->getName()][] = $prop_type->getName();
+        }
+        return $fields;
+    }

@@ -1,0 +1,1 @@
+return [...document.querySelectorAll("#infoblock ~ ul li a")].map(e => `case ${e.textContent};`)

@@ -1,0 +1,2 @@
+[...document.querySelectorAll(".definition-table:first-of-type tbody .supertype:not(:first-of-type)")].forEach(e => e.classList.add("not-to-consider"));
+[...document.querySelectorAll(".definition-table:first-of-type tbody .supertype.not-to-consider ~ tr")].forEach(e => e.classList.add("not-to-consider"));
